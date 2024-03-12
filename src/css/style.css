@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/flatpickr.css';
+
+@import 'tailwindcss/utilities';
+
+.title-font {
+    font-family:"Times New Roman", Times, serif; /* 替换成你的字体 */
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .flex-wrap {
+      display: flex;
+      flex-wrap: wrap;
+    }
+}
+
+*{
+    font-family:"Times New Roman", Times, serif !important; /* 替换成你的字体 */
+    font-weight: bold;
+}
