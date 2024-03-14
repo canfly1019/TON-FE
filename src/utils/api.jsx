@@ -24,8 +24,7 @@ export const getFilteredNodes = async (amount) => {
     .then(function (myJson) {
         data = myJson;
     });
-    console.log(data);
-    console.log("data");
+    console.log("data", data);
     return parse(data);
 }
 export const getNodeInfos = async () => {

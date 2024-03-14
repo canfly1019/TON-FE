@@ -32,8 +32,8 @@ function App() {
   return (
     <>
     <RecoilRoot>
-    {/* <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
-    <WelcomeBanner/> */}
+    <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
+    <WelcomeBanner/>
       <Routes>
         <Route exact path="/" element={<MockGraph />} />
       </Routes>
