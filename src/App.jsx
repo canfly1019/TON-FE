@@ -12,6 +12,7 @@ import './charts/ChartjsConfig';
 // Import pages
 
 import MockGraph from './pages/mockGraph';
+import MockJettonGraph from './pages/mockJettonGraph';
 import MockGraph2D from './pages/mockGraph2D';
 import CurrentTransaction from './pages/CurrentTxGraph';
 import CurrentTransaction2D from './pages/CurrentTxGraph2D';
@@ -32,10 +33,10 @@ function App() {
   return (
     <>
     <RecoilRoot>
-    <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
-    <WelcomeBanner/>
+    {/* <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
+    <WelcomeBanner/> */}
       <Routes>
-        <Route exact path="/" element={<MockGraph />} />
+        <Route exact path="/" element={<MockJettonGraph />} />
       </Routes>
       <Routes>
         <Route exact path="/current-tx" element={<CurrentTransaction />} />
