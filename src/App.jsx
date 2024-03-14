@@ -32,8 +32,8 @@ function App() {
   return (
     <>
     <RecoilRoot>
-    <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
-    <WelcomeBanner/>
+    {/* <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
+    <WelcomeBanner/> */}
       <Routes>
         <Route exact path="/" element={<MockGraph />} />
       </Routes>
@@ -46,7 +46,7 @@ function App() {
       <Routes>
         <Route exact path="/current-tx-2d" element={<CurrentTransaction2D/>} />
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
       </RecoilRoot>
     </>
   );

@@ -46,14 +46,15 @@ const TempGraph = (props) => {
         });
         }, [props.data])
     return (
-        <div className='relative p-4 sm:p-6 rounded-sm overflow-hidden mr-auto ml-auto w-10/12 '>
-            <div className='text-center'>
+        <div>
+        {/* <div className='relative p-4 sm:p-6 rounded-sm overflow-hidden mr-auto ml-auto w-10/12 '> */}
+            {/* <div className='text-center'>
                 tx max amount: {good.tx_amount_max} TON <br />
                 tx min amount: {good.tx_amount_min} TON<br />
                 tx total count: {good.tx_total} <br />
                 node total count: {good.node_total}<br />
                 max receive count: {good.receive_count_max}<br />
-            </div>
+            </div> */}
             <ForceGraph3D
             graphData={mockData}
             nodeOpacity={1}

@@ -25,3 +25,22 @@
     font-family:"Times New Roman", Times, serif !important; /* 替换成你的字体 */
     font-weight: bold;
 }
+
+.space {
+    background: transparent;
+    border: 2px solid gray;
+    /* 居中设置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 占据屏幕的90% */
+    width: 90%;
+    height: 80%;
+    /* 使元素居于屏幕中央，需要设置为绝对定位或固定定位 */
+    position: absolute;
+    /* 将元素的左上角移动到屏幕的中央，然后通过transform向上和向左各偏移50%，确保元素确切居中 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}

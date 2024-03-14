@@ -24,7 +24,20 @@ const MockGraph = () => {
             }
             return dt;
         })
-    return (<TempGraph data={tgdata} uid="example"/>)
+    return (
+        <div>
+            <TempGraph data={tgdata} uid="example"/>
+            <div id="verse-label" className="fixed-label" style={{ position: 'absolute', top: '5%', left: '20%' }}>
+                Verse
+            </div>
+            <div id="eco-label" className="fixed-label" style={{ position: 'absolute', top: '5%', right: '20%' }}>
+                Eco
+            </div>
+            <div className='space' style={{ position: 'absolute', top: '50%', left: '50%' }}>
+                
+            </div>
+        </div>
+    )
 }
 
 export default MockGraph;
