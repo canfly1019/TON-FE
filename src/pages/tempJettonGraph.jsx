@@ -60,7 +60,7 @@ const TempGraph = (props) => {
         });
         const fg3d = fgRef.current;
         if (fg3d) {
-            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.3, 1, 1);
+            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.03, 0.01, 1);
             fg3d.postProcessingComposer().addPass(bloomPass);
         }
     }, [props.data])
@@ -106,6 +106,28 @@ const TempGraph = (props) => {
             linkDirectionalParticles={0}
             linkDirectionalParticleColor={()=>"#4EFEB3"}
             linkDirectionalParticleWidth={2}
+            // nodeThreeObject={node => {
+            //     const size = (node.level + 1) * 2;
+            //     const material = new THREE.MeshStandardMaterial({
+            //         color: node.color,
+            //         emissive: node.color,
+            //         emissiveIntensity: 0.1,
+            //         metalness: 0.5,
+            //         roughness: 0.5,
+            //         transparent: true,
+            //         opacity: 1
+            //     });
+            //     const geometry = [
+            //         new THREE.BoxGeometry(size, size, size),
+            //         new THREE.ConeGeometry(size, size * 2),
+            //         new THREE.CylinderGeometry(size, size, size * 2),
+            //         new THREE.DodecahedronGeometry(size),
+            //         new THREE.SphereGeometry(size),
+            //         new THREE.TorusGeometry(size, size / 2),
+            //         new THREE.TorusKnotGeometry(size, size / 2)
+            //     ][node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4 % 5];
+            //     return new THREE.Mesh(geometry, material);
+            // }}
             onNodeClick={handleNodeClick}
             // (node) => {
             //     if(node.url){
