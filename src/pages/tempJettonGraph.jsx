@@ -21,7 +21,6 @@ const TempGraph = (props) => {
             <div style="color: #2f2f2f; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 5px;">
                 ID: ${node.id}<br/>
                 Type: ${node.type}<br/>
-                <!-- 其他你希望包含的信息 -->
             </div>
         `;
         return labelContent;
@@ -108,6 +107,7 @@ const TempGraph = (props) => {
             onLinkClick={(link) => {
                 window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
             }}
+
             nodeThreeObject={(node) => {
                 const size = (node.level+1)*2;
                 return new THREE.Mesh(
@@ -127,8 +127,6 @@ const TempGraph = (props) => {
                     }))
                 }
             }
-            // dagMode='zin'
-            
             />
         </div>
     )

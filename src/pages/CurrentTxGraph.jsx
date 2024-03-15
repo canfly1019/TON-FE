@@ -16,7 +16,6 @@ const CurrentTransaction = () => {
     }, [amount])
     return (
         <div className="w-full">
-            <SliderComponent />
             <TempGraph data={txData} uid="tx"/>
         </div>
     )

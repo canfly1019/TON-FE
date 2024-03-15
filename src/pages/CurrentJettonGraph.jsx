@@ -16,7 +16,6 @@ const CurrentJettonTransaction = () => {
     }, [amount]);
     return (
         <div className="w-full">
-            <SliderComponent />
             <TempJettonGraph data={txData} uid="example"/>
         </div>
     )
