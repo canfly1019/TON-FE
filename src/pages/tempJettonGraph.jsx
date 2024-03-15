@@ -8,10 +8,22 @@ import * as THREE from 'three';
 
 const TempGraph = (props) => {
     const [good, setgood] =  useRecoilState(graphMetaAtomF(props.uid));
+    const [selectedNodeId, setSelectedNodeId] = useState(null);
     const [mockData, setMockData] = useState({
         nodes: [],
         links: []
     });
+
+    const getFormattedNodeLabel = (node) => {
+        const labelContent = `
+            <div style="color: #2f2f2f; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 5px;">
+                ID: ${node.id}<br/>
+                Type: ${node.type}<br/>
+                <!-- 其他你希望包含的信息 -->
+            </div>
+        `;
+        return labelContent;
+    };
 
     useEffect(() => {
         console.log(getNodes(props.data));
@@ -44,7 +56,17 @@ const TempGraph = (props) => {
             tx_total: props.data.length,
             node_total: nodes.length
         });
-        }, [props.data])
+    }, [props.data])
+
+    const [selectedNode, setSelectedNode] = useState(null);
+
+    const handleNodeClick = node => {
+        setSelectedNode(node); // 设置当前选中的节点
+    };
+
+    // const getFormattedNodeLabel = node => {
+    //     return node === selectedNode ? `${node.id}` : '';
+    // };
     return (
         <div>
         {/* <div className='relative p-4 sm:p-6 rounded-sm overflow-hidden mr-auto ml-auto w-10/12 '> */}
@@ -64,7 +86,10 @@ const TempGraph = (props) => {
             linkOpacity={1}
             linkCurvature={.1}
             nodeVal={node=>node.level*5}
-            nodeLabel={getFormattedNodeLabel}
+            // nodeLabel={getFormattedNodeLabel}
+            nodeLabel={node =>
+                `<div><span style="color: #2f2f2f">${getFormattedNodeLabel(node)}</span></div>`
+            }              
             linkLabel={link => link.amount}
             linkDirectionalArrowLength={()=>2}
             linkDirectionalArrowWidth={()=>1}
@@ -72,13 +97,14 @@ const TempGraph = (props) => {
             linkDirectionalParticles={0}
             linkDirectionalParticleColor={()=>"#4EFEB3"}
             linkDirectionalParticleWidth={2}
-            onNodeClick={(node) => {
-                if(node.url){
-                    window.open(node.url,"_blank")
-                } else {
-                    window.open(`https://tonviewer.com/${node.address}`, "_blank")
-                }
-            }}
+            onNodeClick={handleNodeClick}
+            // (node) => {
+            //     if(node.url){
+            //         window.open(node.url,"_blank")
+            //     } else {
+            //         window.open(`https://tonviewer.com/${node.address}`, "_blank")
+            //     }
+            // }
             onLinkClick={(link) => {
                 window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
             }}
