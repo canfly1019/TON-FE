@@ -1,12 +1,14 @@
 import MOCK_DATA from '../dataset/mock_data.json';
 import { ForceGraph3D } from 'react-force-graph';
-import { useState, useEffect } from 'react';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { useState, useEffect, useRef } from 'react';
 import { getNodes, getEdges, getFormattedNodeLabel } from '../utils/graph';
 import { graphMetaAtomF } from '../core/atom';
 import { useRecoilState } from 'recoil';
 import * as THREE from 'three';
 
 const TempGraph = (props) => {
+    const fgRef = useRef();
     const [good, setgood] =  useRecoilState(graphMetaAtomF(props.uid));
     const [mockData, setMockData] = useState({
         nodes: [],
@@ -44,6 +46,12 @@ const TempGraph = (props) => {
             tx_total: props.data.length,
             node_total: nodes.length
         });
+        const fg3d = fgRef.current;
+        if (fg3d) {
+            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.3, 1, 1);
+            fg3d.postProcessingComposer().addPass(bloomPass);
+        }
+          
         }, [props.data])
     return (
         <div>
@@ -56,6 +64,7 @@ const TempGraph = (props) => {
                 max receive count: {good.receive_count_max}<br />
             </div> */}
             <ForceGraph3D
+            ref={fgRef}
             graphData={mockData}
             nodeOpacity={1}
             nodeResolution={8}
@@ -69,6 +78,7 @@ const TempGraph = (props) => {
             linkDirectionalArrowLength={()=>2}
             linkDirectionalArrowWidth={()=>1}
             linkDirectionalArrowRelPos={1}
+            linkDirectionalArrowColor={() => "yellow"}
             linkDirectionalParticles={0}
             linkDirectionalParticleColor={()=>"#4EFEB3"}
             linkDirectionalParticleWidth={2}
