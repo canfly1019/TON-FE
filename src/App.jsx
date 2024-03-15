@@ -36,9 +36,9 @@ function App() {
     {/* <WelcomeBanner/> */}
         {/* <div className='space'>
         </div> */}
-      <Routes>
+      {/* <Routes>
         <Route exact path="/" element={<MockJettonGraph />} />
-      </Routes>
+      </Routes> */}
       <Routes>
         <Route exact path="/current-tx" element={<CurrentTransaction />} />
       </Routes>

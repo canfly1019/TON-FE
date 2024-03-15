@@ -13,6 +13,16 @@ const TempGraph = (props) => {
         links: []
     });
 
+    const getFormattedNodeLabel = (node) => {
+        const labelContent = `
+            <div style="color: #2f2f2f; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 5px;">
+                ID: ${node.id}<br/>
+                Type: ${node.type}<br/>
+            </div>
+        `;
+        return labelContent;
+    };
+
     useEffect(() => {
         console.log(getNodes(props.data));
         const nodes = getNodes(props.data);
@@ -47,61 +57,54 @@ const TempGraph = (props) => {
         }, [props.data])
     return (
         <div>
-        {/* <div className='relative p-4 sm:p-6 rounded-sm overflow-hidden mr-auto ml-auto w-10/12 '> */}
-            {/* <div className='text-center'>
-                tx max amount: {good.tx_amount_max} TON <br />
-                tx min amount: {good.tx_amount_min} TON<br />
-                tx total count: {good.tx_total} <br />
-                node total count: {good.node_total}<br />
-                max receive count: {good.receive_count_max}<br />
-            </div> */}
             <ForceGraph3D
-            graphData={mockData}
-            nodeOpacity={1}
-            nodeResolution={8}
-            linkColor={()=>"aqua"}
-            linkWidth={.2}
-            linkOpacity={1}
-            linkCurvature={.1}
-            nodeVal={node=>node.level*5}
-            nodeLabel={getFormattedNodeLabel}
-            linkLabel={link => link.amount}
-            linkDirectionalArrowLength={()=>2}
-            linkDirectionalArrowWidth={()=>1}
-            linkDirectionalArrowRelPos={1}
-            linkDirectionalParticles={0}
-            linkDirectionalParticleColor={()=>"#4EFEB3"}
-            linkDirectionalParticleWidth={2}
-            onNodeClick={(node) => {
-                if(node.url){
-                    window.open(node.url,"_blank")
-                } else {
-                    window.open(`https://tonviewer.com/${node.address}`, "_blank")
+                graphData={mockData}
+                nodeOpacity={1}
+                nodeResolution={8}
+                linkColor={()=>"aqua"}
+                linkWidth={.2}
+                linkOpacity={1}
+                linkCurvature={.1}
+                nodeVal={node=>node.level*5}
+                nodeLabel={node =>
+                    `<div><span style="color: #2f2f2f">${getFormattedNodeLabel(node)}</span></div>`
                 }
-            }}
-            onLinkClick={(link) => {
-                window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
-            }}
-            nodeThreeObject={(node) => {
-                const size = (node.level+1)*2;
-                return new THREE.Mesh(
-                    [
-                    new THREE.BoxGeometry(size, size,size),
-                    new THREE.ConeGeometry(size, size*2),
-                    new THREE.CylinderGeometry(size, size, size*2),
-                    new THREE.DodecahedronGeometry(size),
-                    new THREE.SphereGeometry(size),
-                    new THREE.TorusGeometry(size, size*2),
-                    new THREE.TorusKnotGeometry(size, size*2)
-                    ][(node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4) % 5],
-                    new THREE.MeshLambertMaterial({
-                        color: node.color,
-                        transparent: true,
-                        opacity: 1
-                    }))
+                linkLabel={link => link.amount}
+                linkDirectionalArrowLength={()=>2}
+                linkDirectionalArrowWidth={()=>1}
+                linkDirectionalArrowRelPos={1}
+                linkDirectionalParticles={0}
+                linkDirectionalParticleColor={()=>"#4EFEB3"}
+                linkDirectionalParticleWidth={2}
+                onNodeClick={(node) => {
+                    if(node.url){
+                        window.open(node.url,"_blank")
+                    } else {
+                        window.open(`https://tonviewer.com/${node.address}`, "_blank")
+                    }
+                }}
+                onLinkClick={(link) => {
+                    window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
+                }}
+                nodeThreeObject={(node) => {
+                    const size = (node.level+1)*2;
+                    return new THREE.Mesh(
+                        [
+                        new THREE.BoxGeometry(size, size,size),
+                        new THREE.ConeGeometry(size, size*2),
+                        new THREE.CylinderGeometry(size, size, size*2),
+                        new THREE.DodecahedronGeometry(size),
+                        new THREE.SphereGeometry(size),
+                        new THREE.TorusGeometry(size, size*2),
+                        new THREE.TorusKnotGeometry(size, size*2)
+                        ][(node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4) % 5],
+                        new THREE.MeshLambertMaterial({
+                            color: node.color,
+                            transparent: true,
+                            opacity: 1
+                        }))
+                    }
                 }
-            }
-            // dagMode='zin'
             />
         </div>
     )

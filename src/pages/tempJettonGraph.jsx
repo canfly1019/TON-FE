@@ -21,7 +21,6 @@ const TempGraph = (props) => {
             <div style="color: #2f2f2f; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 5px;">
                 ID: ${node.id}<br/>
                 Type: ${node.type}<br/>
-                <!-- 其他你希望包含的信息 -->
             </div>
         `;
         return labelContent;
@@ -85,81 +84,78 @@ const TempGraph = (props) => {
                 max receive count: {good.receive_count_max}<br />
             </div> */}
             <ForceGraph3D
-            ref={fgRef}
-            graphData={mockData}
-            nodeOpacity={1}
-            nodeResolution={8}
-            linkColor={()=>"purple"}
-            linkWidth={.2}
-            linkOpacity={1}
-            linkCurvature={.1}
-            nodeVal={node=>node.level*5}
-            // nodeLabel={getFormattedNodeLabel}
-            nodeLabel={node =>
-                `<div><span style="color: #2f2f2f">${getFormattedNodeLabel(node)}</span></div>`
-            }              
-            linkLabel={link => link.amount}
-            linkDirectionalArrowLength={()=>2}
-            linkDirectionalArrowWidth={()=>1}
-            linkDirectionalArrowRelPos={1}
-            linkDirectionalArrowColor={() => "yellow"}
-            linkDirectionalParticles={0}
-            linkDirectionalParticleColor={()=>"#4EFEB3"}
-            linkDirectionalParticleWidth={2}
-            // nodeThreeObject={node => {
-            //     const size = (node.level + 1) * 2;
-            //     const material = new THREE.MeshStandardMaterial({
-            //         color: node.color,
-            //         emissive: node.color,
-            //         emissiveIntensity: 0.1,
-            //         metalness: 0.5,
-            //         roughness: 0.5,
-            //         transparent: true,
-            //         opacity: 1
-            //     });
-            //     const geometry = [
-            //         new THREE.BoxGeometry(size, size, size),
-            //         new THREE.ConeGeometry(size, size * 2),
-            //         new THREE.CylinderGeometry(size, size, size * 2),
-            //         new THREE.DodecahedronGeometry(size),
-            //         new THREE.SphereGeometry(size),
-            //         new THREE.TorusGeometry(size, size / 2),
-            //         new THREE.TorusKnotGeometry(size, size / 2)
-            //     ][node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4 % 5];
-            //     return new THREE.Mesh(geometry, material);
-            // }}
-            onNodeClick={handleNodeClick}
-            // (node) => {
-            //     if(node.url){
-            //         window.open(node.url,"_blank")
-            //     } else {
-            //         window.open(`https://tonviewer.com/${node.address}`, "_blank")
-            //     }
-            // }
-            onLinkClick={(link) => {
-                window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
-            }}
-            nodeThreeObject={(node) => {
-                const size = (node.level+1)*2;
-                return new THREE.Mesh(
-                    [
-                    new THREE.BoxGeometry(size, size,size),
-                    new THREE.ConeGeometry(size, size*2),
-                    new THREE.CylinderGeometry(size, size, size*2),
-                    new THREE.DodecahedronGeometry(size),
-                    new THREE.SphereGeometry(size),
-                    new THREE.TorusGeometry(size, size*2),
-                    new THREE.TorusKnotGeometry(size, size*2)
-                    ][(node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4) % 5],
-                    new THREE.MeshLambertMaterial({
-                        color: node.color,
-                        transparent: true,
-                        opacity: 1
-                    }))
+                ref={fgRef}
+                graphData={mockData}
+                nodeOpacity={1}
+                nodeResolution={8}
+                linkColor={()=>"purple"}
+                linkWidth={.2}
+                linkOpacity={1}
+                linkCurvature={.1}
+                nodeVal={node=>node.level*5}
+                // nodeLabel={getFormattedNodeLabel}
+                nodeLabel={node =>
+                    `<div><span style="color: #2f2f2f">${getFormattedNodeLabel(node)}</span></div>`
                 }
-            }
-            // dagMode='zin'
-            
+                linkLabel={link => link.amount}
+                linkDirectionalArrowLength={()=>2}
+                linkDirectionalArrowWidth={()=>1}
+                linkDirectionalArrowRelPos={1}
+                linkDirectionalArrowColor={() => "yellow"}
+                linkDirectionalParticles={0}
+                linkDirectionalParticleColor={()=>"#4EFEB3"}
+                linkDirectionalParticleWidth={2}
+                // nodeThreeObject={node => {
+                //     const size = (node.level + 1) * 2;
+                //     const material = new THREE.MeshStandardMaterial({
+                //         color: node.color,
+                //         emissive: node.color,
+                //         emissiveIntensity: 0.1,
+                //         metalness: 0.5,
+                //         roughness: 0.5,
+                //         transparent: true,
+                //         opacity: 1
+                //     });
+                //     const geometry = [
+                //         new THREE.BoxGeometry(size, size, size),
+                //         new THREE.ConeGeometry(size, size * 2),
+                //         new THREE.CylinderGeometry(size, size, size * 2),
+                //         new THREE.DodecahedronGeometry(size),
+                //         new THREE.SphereGeometry(size),
+                //         new THREE.TorusGeometry(size, size / 2),
+                //         new THREE.TorusKnotGeometry(size, size / 2)
+                //     ][node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4 % 5];
+                //     return new THREE.Mesh(geometry, material);
+                // }}
+                onNodeClick={(node) => {
+                    if(node.url){
+                        window.open(node.url,"_blank")
+                    } else {
+                        window.open(`https://tonviewer.com/${node.address}`, "_blank")
+                    }
+                }}
+                onLinkClick={(link) => {
+                    window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
+                }}
+                nodeThreeObject={(node) => {
+                    const size = (node.level+1)*2;
+                    return new THREE.Mesh(
+                        [
+                        new THREE.BoxGeometry(size, size,size),
+                        new THREE.ConeGeometry(size, size*2),
+                        new THREE.CylinderGeometry(size, size, size*2),
+                        new THREE.DodecahedronGeometry(size),
+                        new THREE.SphereGeometry(size),
+                        new THREE.TorusGeometry(size, size*2),
+                        new THREE.TorusKnotGeometry(size, size*2)
+                        ][(node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4) % 5],
+                        new THREE.MeshLambertMaterial({
+                            color: node.color,
+                            transparent: true,
+                            opacity: 1
+                        }))
+                    }
+                }            
             />
         </div>
     )
