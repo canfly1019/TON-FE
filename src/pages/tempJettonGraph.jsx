@@ -58,15 +58,6 @@ const TempGraph = (props) => {
         });
     }, [props.data])
 
-    const [selectedNode, setSelectedNode] = useState(null);
-
-    const handleNodeClick = node => {
-        setSelectedNode(node); // 设置当前选中的节点
-    };
-
-    // const getFormattedNodeLabel = node => {
-    //     return node === selectedNode ? `${node.id}` : '';
-    // };
     return (
         <div>
         {/* <div className='relative p-4 sm:p-6 rounded-sm overflow-hidden mr-auto ml-auto w-10/12 '> */}
@@ -97,14 +88,14 @@ const TempGraph = (props) => {
             linkDirectionalParticles={0}
             linkDirectionalParticleColor={()=>"#4EFEB3"}
             linkDirectionalParticleWidth={2}
-            onNodeClick={handleNodeClick}
-            // (node) => {
-            //     if(node.url){
-            //         window.open(node.url,"_blank")
-            //     } else {
-            //         window.open(`https://tonviewer.com/${node.address}`, "_blank")
-            //     }
-            // }
+            onNodeClick={(node) => {
+                if(node.url){
+                    window.open(node.url,"_blank")
+                } else {
+                    window.open(`https://tonviewer.com/${node.address}`, "_blank")
+                }
+            }}
+            
             onLinkClick={(link) => {
                 window.open(`https://tonviewer.com/transaction/${link.tx_id}`, "_blank")
             }}
