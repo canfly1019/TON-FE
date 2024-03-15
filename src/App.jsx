@@ -13,9 +13,8 @@ import './charts/ChartjsConfig';
 
 import MockGraph from './pages/mockGraph';
 import MockJettonGraph from './pages/mockJettonGraph';
-import MockGraph2D from './pages/mockGraph2D';
 import CurrentTransaction from './pages/CurrentTxGraph';
-import CurrentTransaction2D from './pages/CurrentTxGraph2D';
+import CurrentJettonTransaction from './pages/CurrentJettonGraph';
 import Footer from "./components/footer.jsx";
 import Header from './partials/Header';
 import WelcomeBanner from './partials/dashboard/WelcomeBanner';
@@ -33,8 +32,10 @@ function App() {
   return (
     <>
     <RecoilRoot>
-    {/* <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
-    <WelcomeBanner/> */}
+    <Header sidebarOpen={false} setSidebarOpen={()=>{}} />
+    {/* <WelcomeBanner/> */}
+        {/* <div className='space'>
+        </div> */}
       <Routes>
         <Route exact path="/" element={<MockJettonGraph />} />
       </Routes>
@@ -42,12 +43,9 @@ function App() {
         <Route exact path="/current-tx" element={<CurrentTransaction />} />
       </Routes>
       <Routes>
-        <Route exact path="/mock-2d" element={<MockGraph2D/>} />
+        <Route exact path="/current-jetton" element={<CurrentJettonTransaction />} />
       </Routes>
-      <Routes>
-        <Route exact path="/current-tx-2d" element={<CurrentTransaction2D/>} />
-      </Routes>
-      {/* <Footer/> */}
+      <Footer/>
       </RecoilRoot>
     </>
   );

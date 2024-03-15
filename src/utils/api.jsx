@@ -27,6 +27,20 @@ export const getFilteredNodes = async (amount) => {
     console.log("data", data);
     return parse(data);
 }
+export const getJettonNodes = async (amount) => {
+    let data = "";
+    await fetch(`${TARGET_URL}jetton/`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (myJson) {
+        data = myJson;
+    });
+    console.log("data", data);
+    return parse(data);
+}
+
+
 export const getNodeInfos = async () => {
     let data = "";
     await fetch(`${TARGET_URL}node_info`)
