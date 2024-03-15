@@ -1,12 +1,14 @@
 import MOCK_DATA from '../dataset/mock_data.json';
 import { ForceGraph3D } from 'react-force-graph';
-import { useState, useEffect } from 'react';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { useState, useEffect, useRef } from 'react';
 import { getNodes, getEdges, getFormattedNodeLabel } from '../utils/graph';
 import { graphMetaAtomF } from '../core/atom';
 import { useRecoilState } from 'recoil';
 import * as THREE from 'three';
 
 const TempGraph = (props) => {
+    const fgRef = useRef();
     const [good, setgood] =  useRecoilState(graphMetaAtomF(props.uid));
     const [selectedNodeId, setSelectedNodeId] = useState(null);
     const [mockData, setMockData] = useState({
@@ -56,6 +58,11 @@ const TempGraph = (props) => {
             tx_total: props.data.length,
             node_total: nodes.length
         });
+        const fg3d = fgRef.current;
+        if (fg3d) {
+            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.03, 0.01, 1);
+            fg3d.postProcessingComposer().addPass(bloomPass);
+        }
     }, [props.data])
 
     const [selectedNode, setSelectedNode] = useState(null);
@@ -78,6 +85,7 @@ const TempGraph = (props) => {
                 max receive count: {good.receive_count_max}<br />
             </div> */}
             <ForceGraph3D
+            ref={fgRef}
             graphData={mockData}
             nodeOpacity={1}
             nodeResolution={8}
@@ -94,9 +102,32 @@ const TempGraph = (props) => {
             linkDirectionalArrowLength={()=>2}
             linkDirectionalArrowWidth={()=>1}
             linkDirectionalArrowRelPos={1}
+            linkDirectionalArrowColor={() => "yellow"}
             linkDirectionalParticles={0}
             linkDirectionalParticleColor={()=>"#4EFEB3"}
             linkDirectionalParticleWidth={2}
+            // nodeThreeObject={node => {
+            //     const size = (node.level + 1) * 2;
+            //     const material = new THREE.MeshStandardMaterial({
+            //         color: node.color,
+            //         emissive: node.color,
+            //         emissiveIntensity: 0.1,
+            //         metalness: 0.5,
+            //         roughness: 0.5,
+            //         transparent: true,
+            //         opacity: 1
+            //     });
+            //     const geometry = [
+            //         new THREE.BoxGeometry(size, size, size),
+            //         new THREE.ConeGeometry(size, size * 2),
+            //         new THREE.CylinderGeometry(size, size, size * 2),
+            //         new THREE.DodecahedronGeometry(size),
+            //         new THREE.SphereGeometry(size),
+            //         new THREE.TorusGeometry(size, size / 2),
+            //         new THREE.TorusKnotGeometry(size, size / 2)
+            //     ][node.type === "GAMEFI" ? 1 : node.type === "DEFI" ? 2 : 4 % 5];
+            //     return new THREE.Mesh(geometry, material);
+            // }}
             onNodeClick={handleNodeClick}
             // (node) => {
             //     if(node.url){
