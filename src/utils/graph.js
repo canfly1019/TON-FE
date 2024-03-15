@@ -47,7 +47,7 @@ const getLevel = (rxTimes) => {
 export const getNodes = (dataArray) => {
     
     const nodes = {};
-    dataArray.forEach((data) => {
+    dataArray.forEach((data) => {//calculate node level
         const txId = data[TX_ATTR.senderAddr];
         const rxId = data[TX_ATTR.receiverAddr];
         if (!nodes.hasOwnProperty(txId)) {
